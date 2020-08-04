@@ -10,7 +10,7 @@ namespace NetCodeTrial1.Server.Console
     {
         static async Task Main(string[] args)
         {
-            System.Console.Title = "NetCodeTrial1: Realtime";
+            System.Console.Title = "NetCodeTrial1";
 
             var executingAssembly = Assembly.GetExecutingAssembly();
 
