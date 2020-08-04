@@ -3,8 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetCodeTrial1.Server.Realtime.Contracts;
 using NetCodeTrial1.Server.Realtime.Network.ENet;
-using NetCodeTrial1.Server.Realtime.Runtime.Configuration;
-using NetCodeTrial1.Server.Realtime.Runtime.Runtime;
 
 namespace NetCodeTrial1.Server.Realtime.Application
 {
@@ -21,15 +19,12 @@ namespace NetCodeTrial1.Server.Realtime.Application
 
                     configurationBuilder
                         .SetBasePath(env.ContentRootPath)
-                        .AddJsonFile("config/realtime.json", optional: false, reloadOnChange: true)
                         .AddEnvironmentVariables()
                         .AddCommandLine(args);
                 })
                 .ConfigureServices((hostBuilderContext, services) =>
                 {
                     services.AddSingleton<INetworkServer, ENetServer>();
-                    services.AddSingleton<IServerAddressProvider, ServerAddressProvider>();
-                    services.AddSingleton<INetworkConfiguration, NetworkConfiguration>();
 
                     services.AddHostedService<ENetServerHostedService>();
                 });
