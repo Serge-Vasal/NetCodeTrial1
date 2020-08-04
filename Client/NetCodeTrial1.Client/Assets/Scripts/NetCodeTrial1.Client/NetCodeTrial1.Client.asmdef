@@ -1,0 +1,17 @@
+{
+    "name": "NetCodeTrial1.Client",
+    "references": [
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:349ca6b86c0559e458d3315b2af5c79c",
+        "GUID:777c85e994a36b14ca3a0b434982330e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

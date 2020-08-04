@@ -1,0 +1,15 @@
+{
+    "name": "NetCodeTrial1.Client.Network.ENet",
+    "references": [
+        "GUID:777c85e994a36b14ca3a0b434982330e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

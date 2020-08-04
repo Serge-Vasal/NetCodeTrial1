@@ -1,0 +1,15 @@
+{
+    "name": "NetCodeTrial1.Client.Realtime",
+    "references": [
+        "GUID:92d2ba3e90ae6ff4a8a543af06a429ab"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

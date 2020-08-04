@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="config\realtime.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="config\realtime.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCodeTrial1.Server.Realtime.Network.ENet\NetCodeTrial1.Server.Realtime.Network.ENet.csproj" />
+    <ProjectReference Include="..\NetCodeTrial1.Server.Realtime.Runtime\NetCodeTrial1.Server.Realtime.Runtime.csproj" />
+  </ItemGroup>
+
+</Project>
