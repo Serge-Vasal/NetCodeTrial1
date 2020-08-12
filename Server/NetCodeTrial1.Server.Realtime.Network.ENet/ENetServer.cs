@@ -1,6 +1,7 @@
 ﻿using ENet;
 using Microsoft.Extensions.Logging;
 using NetCodeTrial1.Server.Realtime.Contracts;
+using NetCodeTrial1.Server.Realtime.Contracts.Channels;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,13 +10,17 @@ namespace NetCodeTrial1.Server.Realtime.Network.ENet
 {
     public class ENetServer : INetworkServer
     {
+        private readonly IDeserializationChannel<EnetNetworkMessage> deserializationChannel;
         private readonly ILogger<ENetServer> logger;
 
         private Host server;
         private CancellationTokenSource cancellationTokenSource;
 
-        public ENetServer(ILogger<ENetServer> logger)
+        public ENetServer(
+            IDeserializationChannel<EnetNetworkMessage> deserializationChannel,
+            ILogger<ENetServer> logger)
         {
+            this.deserializationChannel = deserializationChannel;
             this.logger = logger;
         }
 
@@ -70,13 +75,15 @@ namespace NetCodeTrial1.Server.Realtime.Network.ENet
                 case EventType.Timeout:
                     logger.LogInformation("Client timeout - ID: {peerId}, IP: {peerIP}", networkEvent.Peer.ID, networkEvent.Peer.IP);
                     Console.WriteLine("Client timeout - ID: " + networkEvent.Peer.ID + ", IP: " + networkEvent.Peer.IP);
-
                     break;
 
                 case EventType.Receive:
                     Console.WriteLine("Packet received from - ID: " + networkEvent.Peer.ID + ", IP: " + networkEvent.Peer.IP + ", Channel ID: " + networkEvent.ChannelID + ", Data length: " + networkEvent.Packet.Length);
 
+                    var receivedMessage = new EnetNetworkMessage(networkEvent.Packet, networkEvent.Packet.Length);
+                    WriteToDeserializationChannel(in receivedMessage);
                     break;
+
                 default:
                     throw new NotImplementedException($"The event type {networkEvent.Type} is not supported.");
             }
@@ -90,6 +97,14 @@ namespace NetCodeTrial1.Server.Realtime.Network.ENet
             server = null;
 
             return Task.CompletedTask;
+        }
+
+        private void WriteToDeserializationChannel(in EnetNetworkMessage message)
+        {
+            if (!deserializationChannel.TryWrite(in message))
+            {
+                logger.LogError("Message can't be written to the channel.");
+            }
         }
     }
 }

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetCodeTrial1.Server.Realtime.Network.ENet\NetCodeTrial1.Server.Realtime.Network.ENet.csproj" />
+    <ProjectReference Include="..\NetCodeTrial1.Server.Realtime.Runtime\NetCodeTrial1.Server.Realtime.Runtime.csproj" />
   </ItemGroup>
 
 </Project>

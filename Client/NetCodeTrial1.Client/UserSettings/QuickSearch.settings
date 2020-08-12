@@ -10,7 +10,7 @@ showPackageIndexes = false
 debounceMs = 250
 scopes = {
 	"scene.0260DB95" = "True"
-	"last_search.0260DB95" = "loa"
+	"last_search.0260DB95" = "lobb"
 	"asset.0260DB95" = "True"
 	"settings.0260DB95" = "True"
 	"object.0260DB95" = "True"
@@ -27,19 +27,14 @@ providers = {
 		priority = 100
 		defaultAction = null
 	}
-	object = {
-		active = true
-		priority = 55
-		defaultAction = null
-	}
-	find = {
-		active = true
-		priority = 25
-		defaultAction = null
-	}
 	scene = {
 		active = true
 		priority = 50
+		defaultAction = null
+	}
+	object = {
+		active = true
+		priority = 55
 		defaultAction = null
 	}
 	packages = {
@@ -50,6 +45,11 @@ providers = {
 	log = {
 		active = false
 		priority = 210
+		defaultAction = null
+	}
+	find = {
+		active = true
+		priority = 25
 		defaultAction = null
 	}
 }

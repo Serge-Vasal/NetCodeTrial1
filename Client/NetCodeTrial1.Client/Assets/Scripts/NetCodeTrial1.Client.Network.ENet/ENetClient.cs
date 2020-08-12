@@ -11,7 +11,11 @@ namespace NetCodeTrial1.Client.Network.ENet
 {
     public class ENetClient : IGameplayConnection
     {
-        private const byte ChannelCount = 4;
+        public const byte OutgoingUnrelibleChannelId = 0;
+        public const byte OutgoingRelibleChannelId = 2;
+        public const byte IngoingUnrelibleChannelId = 1;
+        public const byte IngoingRelibleChannelId = 3;
+        public const byte ChannelsCount = 4;
 
         public event Action OnDisconnected;
         public event Action OnDisconnectedByServer;
@@ -49,7 +53,7 @@ namespace NetCodeTrial1.Client.Network.ENet
         {
             if (ConnectionState == ConnectionState.Disconnected)
             {
-                peer = client.Connect(address, ChannelCount);
+                peer = client.Connect(address, ChannelsCount);
                 ConnectionState = ConnectionState.Connecting;
             }
         }
@@ -68,27 +72,32 @@ namespace NetCodeTrial1.Client.Network.ENet
 
         public INetworkData GetData()
         {
-            throw new NotImplementedException();
+            return incomingQueue.Dequeue();
         }
 
         public bool HasData()
         {
-            throw new NotImplementedException();
+            return incomingQueue.Count > 0;
         }
 
         public void SendReliable(byte[] data, int length)
         {
-            throw new NotImplementedException();
+            Send(data, length, OutgoingRelibleChannelId, PacketFlags.Reliable);
         }
 
         public void SendUnreliable(byte[] data, int length)
         {
-            throw new NotImplementedException();
+            Send(data, length, OutgoingUnrelibleChannelId, PacketFlags.None | PacketFlags.Unsequenced);
         }
 
         public void ServiceAll()
         {
-            throw new NotImplementedException();
+            bool isServicing = true;
+            while (isServicing)
+            {
+                client.Service(0, out var @event);
+                isServicing = Service(ref @event);
+            }
         }
 
         public void ServiceOnce()
@@ -123,6 +132,13 @@ namespace NetCodeTrial1.Client.Network.ENet
             }
 
             return false;
+        }
+
+        private void Send(byte[] data, int length, byte channelId, PacketFlags flags)
+        {
+            Packet packet = default;
+            packet.Create(data, length, flags);
+            peer.Send(channelId, ref packet);
         }
 
         private void HandleConnect()
